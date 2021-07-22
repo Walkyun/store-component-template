@@ -1,9 +1,9 @@
 {
-  "vendor": "kaysertest",
-  "name": "componente-kayser",
+  "vendor": "mastampa",
+  "name": "componente-mastampa",
   "version": "0.0.1",
-  "title": "componente de kayser",
-  "description": "nada aqui",
+  "title": "componente de mastampa",
+  "description": "nada aqui, nada allá",
   "defaultLocale": "en",
   "builders": {
     "messages": "1.x",

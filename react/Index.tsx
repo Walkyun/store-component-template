@@ -15,6 +15,37 @@ const CSS_HANDLES = [
   'someHandle1',
   'someHandle2',
   'someHandle3',
+
+  'pack_propulsow',
+  'pp_div',
+  'pp_titulo',
+
+  'pp_item_primero',
+  'pp_elemento',
+  'productIdPrimero',
+  'pp_item_imagen',
+  'pp_item_contenido',
+  'pp_item_nombre',
+  'pp_item_precio',
+
+  'pp_operador-01',
+  'pp_operador',
+
+  'pp_item_segundo',
+  'pp_item_actions',
+  'pp_boton_cambiar',
+  'pp_boton_eliminar',
+  'pp_boton_agregar',
+
+  'pp_total',
+  'pp_total_icono',
+  'total__price',
+  'pp_boton_comprar',
+
+  'pp_item_tercero',
+  
+
+  
 ] as const
 
 const MyComponent: StorefrontFunctionComponent<MyComponentProps> = () => {
@@ -30,28 +61,87 @@ console.log(data)
    console.log(categoria);
   return (
     <div>
-      <div className={`${handles.someHandle1}`}>
-        <p>producName = {productContextValue?.product?.productName}</p>
-        <p>itemId:{productContextValue?.product?.items[0].itemId}</p>
-        <p>Precio: {productContextValue?.product?.priceRange?.listPrice?.lowPrice}</p>
-        <img src={`${imgUrl}`}></img>
-        <p>categoria:{productContextValue?.product?.categoryId}</p>
+      <div id="pack_propulsow" className={`${handles.pack_propulsow}`}>
+          <div id="pp_div" className={`${handles.pp_div}`}>
+              <div className={`${handles.pp_titulo}`}>
+                  Complementa tu compra
+              </div>
+              <div className={`${handles.pp_elemento}`}>
+                  <div className={`${handles.pp_item_primero}`}>
+                      <input type="hidden" className={`${handles.productIdPrimero}`} value="2384" />
+                      <a className={`${handles.pp_item_imagen}`}>
+                          <img src={`${imgUrl}`} />
+                      </a>
+                      <div className={`${handles.pp_item_contenido}`}>
+                          <a className={`${handles.pp_item_nombre}`} href="#">
+                              <p className={`${handles.pp_item_nombre}`}>{productContextValue?.product?.productName}</p>
+                          </a>
+                          <p className={`${handles.pp_item_precio}`}><span>$ {productContextValue?.product?.priceRange?.listPrice?.lowPrice}</span></p>
+                      </div>
+                  </div>
+                  <div className={`${handles.pp_operador}`}>+</div>
+                  <div className={`${handles.pp_item_segundo}`}>
+                      <div className={`${handles.pp_item_actions}`}>
+                          <button className={`${handles.pp_boton_cambiar}`} type="button">
+                              <i className="fas fa-sync"></i>
+                              Cambiar
+                          </button>
+                          <button className={`${handles.pp_boton_eliminar}`} type="button">
+                              <i></i>
+                              Eliminar
+                          </button>
+                          <button className={`${handles.pp_boton_agregar}`} type="button">
+                              <i className="fas fa-plus"></i>
+                              Agregar
+                          </button>
+                      </div>
+                      <a className={`${handles.pp_item_imagen}`} href="">
+                          <img src="https://sallybeauty.vteximg.com.br/arquivos/ids/157143/916577.jpg?v=636796358537330000" />
+                      </a>
+                      <div className={`${handles.pp_item_contenido}`}>
+                          <a className={`${handles.pp_item_nombre}`} href="">
+                              <p className={`${handles.pp_item_nombre}`}>Plancha Babyliss Mini Óptima BABSS2000UZ</p>
+                          </a>
+                          <p className={`${handles.pp_item_precio}`}><span>$49.900</span></p>
+                      </div>
+                  </div>
+                  <div className={`${handles.pp_operador}`}>+</div>
+                  <div className={`${handles.pp_item_tercero}`}>
+                      <div className={`${handles.pp_item_actions}`}>
+                          <button className={`${handles.pp_boton_cambiar}`} type="button">
+                              <i className="fas fa-sync"></i>
+                              Cambiar
+                          </button>
+                          <button className={`${handles.pp_boton_eliminar}`} type="button">
+                              <i className="fas fa-times"></i>
+                              Eliminar
+                          </button>
+                          <button className={`${handles.pp_boton_agregar}`} type="button">
+                              <i className="fas fa-plus"></i>
+                              Agregar
+                          </button>
+                      </div>
+                      <a className={`${handles.pp_item_imagen}`} href="">
+                          <img src="https://sallybeauty.vteximg.com.br/arquivos/ids/163090/918076.jpg?v=637526288468830000" />
+                      </a>
+                      <div className={`${handles.pp_item_contenido}`}>
+                          <a className={`${handles.pp_item_nombre}`} href="">
+                              <p className={`${handles.pp_item_nombre}`}>Acondicionador Olaplex N°5 100ml Bond Maintenance</p>
+                          </a>
+                          <p className={`${handles.pp_item_precio}`}><span>$13.450</span></p>
+                      </div>
+                  </div>
+                  <div className={`${handles.pp_operador}`}>=</div>
+                  <div className={`${handles.pp_total}`}>
+                      <div className={`${handles.pp_total_icono}`}></div>
+                      <p>Comprar 3 productos por</p><span className={`${handles.total__price}`}>$81.290</span>
+                      <button className={`${handles.pp_boton_comprar}`} type="button">
+                          Comprar
+                      </button>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div className={`${handles.someHandle2}`}>
-        <p>producName = {productContextValue?.product?.productName}</p>
-        <p>itemId:{productContextValue?.product?.items[0].itemId}</p>
-        <p>categoria:{productContextValue?.product?.categoryId}</p>
-      </div>
-      
-
-      {/* Get orderFormId from hook */}
-      
-
-      {/* Use of a ReactHook */}
-      
-
-      {/* Use of a VTEX StyleGuide https://styleguide.vtex.com/*/}
-      
     </div>
   )
 }
