@@ -2,10 +2,11 @@
 import React from 'react'
 import { injectIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
-import { MyComponentProps } from './typings/global'
+//import { MyComponentProps } from './typings/global'
 import { useQuery } from 'react-apollo'
 import QUERY_VALUE from './types/checkout.gql'
 import { useProduct } from 'vtex.product-context'
+//import $ from "jquery"
 //import * as request from 'https'
 
 
@@ -46,19 +47,113 @@ const CSS_HANDLES = [
 
 
 
-] as const
+] as const 
 
-const MyComponent: StorefrontFunctionComponent<MyComponentProps> = () => {
+const MyComponent= () => {
 
-  const { data } = useQuery(QUERY_VALUE)
+  let { data } = useQuery(QUERY_VALUE)
 
-  console.log(data)
+  console.log("data",data)
 
   const handles = useCssHandles(CSS_HANDLES)
   const productContextValue = useProduct()
-  const imgUrl = productContextValue?.product?.items[0]?.images[0].imageUrl;
   const categoria = productContextValue?.product?.categoryId;
-  console.log(categoria);
+  console.log("cat",categoria);
+  let head;
+  let element;
+  let element2;
+
+  function HeadComp(props:any){
+
+    return <div className={props.item}>
+    <button className={props.cambiar} type="button" /* onClick={Cambiar} */>
+      <i className="fas fa-sync"></i>
+      Cambiar
+    </button>
+    <button className={props.eliminar} type="button">
+      <i></i>
+      Eliminar
+    </button>
+    <button className={props.agregar} type="button">
+      <i className="fas fa-plus"></i>
+      Agregar
+    </button>
+  </div>
+  }
+  
+if (data)
+{  
+  head = <HeadComp item={handles.pp_item_actions} 
+                          cambiar={handles.pp_boton_cambiar} 
+                           eliminar={handles.pp_boton_eliminar}
+                           agregar={handles.pp_boton_agregar}/>;
+}
+ 
+function Producto(props:any) {
+    
+  return <div >
+<input type="hidden" className={`${handles.productIdPrimero}`} value="2384" />
+                <a className={`${handles.pp_item_imagen}`}>
+                  <img src={props.img} />
+                </a>
+                <div className={`${handles.pp_item_contenido}`}>
+                  <a className={`${handles.pp_item_nombre}`} href="#">
+                    <p className={`${handles.pp_item_nombre}`}>{props.name}</p>
+                  </a>
+                  <p className={`${handles.pp_item_precio}`}><span>$ {props.price}</span></p>
+                </div>
+                </div>
+                }
+
+  let producto = <Producto name={productContextValue?.product?.productName} 
+                img={productContextValue?.product?.items[0]?.images[0].imageUrl} 
+                 price={productContextValue?.product?.priceRange?.listPrice?.lowPrice}/>;
+
+  function Elemento(props:any) {
+    
+
+    //const limpiar= $(".pp_item_primero").html("");
+
+   // {limpiar}
+    return <div >
+    
+    <a className={`${handles.pp_item_imagen}`} href="">
+      <img src={props.img}  />
+    </a>
+    <div className={`${handles.pp_item_contenido}`}>
+      <a className={`${handles.pp_item_nombre}`} href="">
+        <p className={`${handles.pp_item_nombre}`}>{props.name}</p>
+      </a>
+      <p className={`${handles.pp_item_precio}`}><span>$ {props.price}</span></p>
+    </div>
+  </div>
+  }
+
+  if (data)
+  {  
+  element = <Elemento name={data.products[1].items[0].nameComplete} 
+                          img={data.products[1].items[0].images[0].imageUrl} 
+                           price={data.products[1].items[0].sellers[0].commertialOffer.ListPrice}/>;
+  
+  element2 = <Elemento name={data.products[1].items[0].nameComplete} 
+                           img={data.products[1].items[0].images[0].imageUrl} 
+                            price={data.products[1].items[0].sellers[0].commertialOffer.ListPrice}/>;
+               
+  }
+  console.log("element",element?.props)
+
+  function Suma(props:any){
+      return props.p1+props.p2+props.p3
+  }
+
+  let elemsuma= <Suma p1={element?.props.price} p2={element2?.props.price} p3={producto?.props.price}/>
+
+  /* function Cambiar(){
+    return <Elemento name={data.products[3].items[0].nameComplete}  
+              img={data.products[3].items[0].images[0].imageUrl} 
+              price={data.products[3].items[0].sellers[0].commertialOffer.ListPrice}/>;
+  } */
+
   return (
     <div>
       {data && (
@@ -67,78 +162,30 @@ const MyComponent: StorefrontFunctionComponent<MyComponentProps> = () => {
             <div className={`${handles.pp_titulo}`}>
               Complementa tu compra
             </div>
+            
             <div className={`${handles.pp_elemento}`}>
               <div className={`${handles.pp_item_primero}`}>
-                <input type="hidden" className={`${handles.productIdPrimero}`} value="2384" />
-                <a className={`${handles.pp_item_imagen}`}>
-                  <img src={`${imgUrl}`} />
-                </a>
-                <div className={`${handles.pp_item_contenido}`}>
-                  <a className={`${handles.pp_item_nombre}`} href="#">
-                    <p className={`${handles.pp_item_nombre}`}>{productContextValue?.product?.productName}</p>
-                  </a>
-                  <p className={`${handles.pp_item_precio}`}><span>$ {productContextValue?.product?.priceRange?.listPrice?.lowPrice}</span></p>
-                </div>
+                {producto}                
               </div>
+              
               <div className={`${handles.pp_operador}`}>+</div>
 
-              
               <div className={`${handles.pp_item_segundo}`}>
-                <div className={`${handles.pp_item_actions}`}>
-                  <button className={`${handles.pp_boton_cambiar}`} type="button">
-                    <i className="fas fa-sync"></i>
-                    Cambiar
-                  </button>
-                  <button className={`${handles.pp_boton_eliminar}`} type="button">
-                    <i></i>
-                    Eliminar
-                  </button>
-                  <button className={`${handles.pp_boton_agregar}`} type="button">
-                    <i className="fas fa-plus"></i>
-                    Agregar
-                  </button>
-                </div>
-                <a className={`${handles.pp_item_imagen}`} href="">
-                  <img src={`${data.products[1].items[0].images[0].imageUrl}`}  />
-                </a>
-                <div className={`${handles.pp_item_contenido}`}>
-                  <a className={`${handles.pp_item_nombre}`} href="">
-                    <p className={`${handles.pp_item_nombre}`}>{`${data.products[1].items[0].nameComplete}`}</p>
-                  </a>
-                  <p className={`${handles.pp_item_precio}`}><span>$ {`${data.products[1].items[0].sellers[0].commertialOffer.ListPrice}`}</span></p>
-                </div>
+                 {head}
+                 {element}
               </div>
               
               <div className={`${handles.pp_operador}`}>+</div>
+              
               <div className={`${handles.pp_item_tercero}`}>
-                <div className={`${handles.pp_item_actions}`}>
-                  <button className={`${handles.pp_boton_cambiar}`} type="button">
-                    <i className="fas fa-sync"></i>
-                    Cambiar
-                  </button>
-                  <button className={`${handles.pp_boton_eliminar}`} type="button">
-                    <i className="fas fa-times"></i>
-                    Eliminar
-                  </button>
-                  <button className={`${handles.pp_boton_agregar}`} type="button">
-                    <i className="fas fa-plus"></i>
-                    Agregar
-                  </button>
-                </div>
-                <a className={`${handles.pp_item_imagen}`} href="">
-                  <img src={`${data.products[0].items[0].images[0].imageUrl}`} />
-                </a>
-                <div className={`${handles.pp_item_contenido}`}>
-                  <a className={`${handles.pp_item_nombre}`} href="">
-                    <p className={`${handles.pp_item_nombre}`}>{`${data.products[0].items[0].nameComplete}`}</p>
-                  </a>
-                  <p className={`${handles.pp_item_precio}`}><span>$ {`${data.products[0].items[0].sellers[0].commertialOffer.ListPrice}`}</span></p>
-                </div>
+               {head}
+               {element2}
               </div>
               <div className={`${handles.pp_operador}`}>=</div>
+
               <div className={`${handles.pp_total}`}>
                 <div className={`${handles.pp_total_icono}`}></div>
-                <p>Comprar 3 productos por</p><span className={`${handles.total__price}`}>$81.290</span>
+                <p>Comprar 3 productos por</p><span className={`${handles.total__price}`}>$ {elemsuma}</span>
                 <button className={`${handles.pp_boton_comprar}`} type="button">
                   Comprar
                 </button>
