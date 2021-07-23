@@ -5,7 +5,16 @@ query {
       itemId
       name
       nameComplete
-
+      sellers {
+        commertialOffer {
+          Price
+          ListPrice
+          spotPrice
+        }
+      }
+      images {
+        imageUrl
+      }
     }
   }
 }

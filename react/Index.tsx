@@ -11,7 +11,7 @@ import { useProduct } from 'vtex.product-context'
 
 //Declare Handles for the react component to be accesible
 const CSS_HANDLES = [
- 
+
   'someHandle1',
   'someHandle2',
   'someHandle3',
@@ -43,106 +43,111 @@ const CSS_HANDLES = [
   'pp_boton_comprar',
 
   'pp_item_tercero',
-  
 
-  
+
+
 ] as const
 
 const MyComponent: StorefrontFunctionComponent<MyComponentProps> = () => {
-  
-const { data } = useQuery(QUERY_VALUE)
 
-console.log(data)
+  const { data } = useQuery(QUERY_VALUE)
+
+  console.log(data)
 
   const handles = useCssHandles(CSS_HANDLES)
-   const productContextValue = useProduct()
-   const imgUrl=productContextValue?.product?.items[0]?.images[0].imageUrl;
-   const categoria=productContextValue?.product?.categoryId;
-   console.log(categoria);
+  const productContextValue = useProduct()
+  const imgUrl = productContextValue?.product?.items[0]?.images[0].imageUrl;
+  const categoria = productContextValue?.product?.categoryId;
+  console.log(categoria);
   return (
     <div>
-      <div id="pack_propulsow" className={`${handles.pack_propulsow}`}>
+      {data && (
+        <div id="pack_propulsow" className={`${handles.pack_propulsow}`}>
           <div id="pp_div" className={`${handles.pp_div}`}>
-              <div className={`${handles.pp_titulo}`}>
-                  Complementa tu compra
+            <div className={`${handles.pp_titulo}`}>
+              Complementa tu compra
+            </div>
+            <div className={`${handles.pp_elemento}`}>
+              <div className={`${handles.pp_item_primero}`}>
+                <input type="hidden" className={`${handles.productIdPrimero}`} value="2384" />
+                <a className={`${handles.pp_item_imagen}`}>
+                  <img src={`${imgUrl}`} />
+                </a>
+                <div className={`${handles.pp_item_contenido}`}>
+                  <a className={`${handles.pp_item_nombre}`} href="#">
+                    <p className={`${handles.pp_item_nombre}`}>{productContextValue?.product?.productName}</p>
+                  </a>
+                  <p className={`${handles.pp_item_precio}`}><span>$ {productContextValue?.product?.priceRange?.listPrice?.lowPrice}</span></p>
+                </div>
               </div>
-              <div className={`${handles.pp_elemento}`}>
-                  <div className={`${handles.pp_item_primero}`}>
-                      <input type="hidden" className={`${handles.productIdPrimero}`} value="2384" />
-                      <a className={`${handles.pp_item_imagen}`}>
-                          <img src={`${imgUrl}`} />
-                      </a>
-                      <div className={`${handles.pp_item_contenido}`}>
-                          <a className={`${handles.pp_item_nombre}`} href="#">
-                              <p className={`${handles.pp_item_nombre}`}>{productContextValue?.product?.productName}</p>
-                          </a>
-                          <p className={`${handles.pp_item_precio}`}><span>$ {productContextValue?.product?.priceRange?.listPrice?.lowPrice}</span></p>
-                      </div>
-                  </div>
-                  <div className={`${handles.pp_operador}`}>+</div>
-                  <div className={`${handles.pp_item_segundo}`}>
-                      <div className={`${handles.pp_item_actions}`}>
-                          <button className={`${handles.pp_boton_cambiar}`} type="button">
-                              <i className="fas fa-sync"></i>
-                              Cambiar
-                          </button>
-                          <button className={`${handles.pp_boton_eliminar}`} type="button">
-                              <i></i>
-                              Eliminar
-                          </button>
-                          <button className={`${handles.pp_boton_agregar}`} type="button">
-                              <i className="fas fa-plus"></i>
-                              Agregar
-                          </button>
-                      </div>
-                      <a className={`${handles.pp_item_imagen}`} href="">
-                          <img src="https://sallybeauty.vteximg.com.br/arquivos/ids/157143/916577.jpg?v=636796358537330000" />
-                      </a>
-                      <div className={`${handles.pp_item_contenido}`}>
-                          <a className={`${handles.pp_item_nombre}`} href="">
-                              <p className={`${handles.pp_item_nombre}`}>Plancha Babyliss Mini Óptima BABSS2000UZ</p>
-                          </a>
-                          <p className={`${handles.pp_item_precio}`}><span>$49.900</span></p>
-                      </div>
-                  </div>
-                  <div className={`${handles.pp_operador}`}>+</div>
-                  <div className={`${handles.pp_item_tercero}`}>
-                      <div className={`${handles.pp_item_actions}`}>
-                          <button className={`${handles.pp_boton_cambiar}`} type="button">
-                              <i className="fas fa-sync"></i>
-                              Cambiar
-                          </button>
-                          <button className={`${handles.pp_boton_eliminar}`} type="button">
-                              <i className="fas fa-times"></i>
-                              Eliminar
-                          </button>
-                          <button className={`${handles.pp_boton_agregar}`} type="button">
-                              <i className="fas fa-plus"></i>
-                              Agregar
-                          </button>
-                      </div>
-                      <a className={`${handles.pp_item_imagen}`} href="">
-                          <img src="https://sallybeauty.vteximg.com.br/arquivos/ids/163090/918076.jpg?v=637526288468830000" />
-                      </a>
-                      <div className={`${handles.pp_item_contenido}`}>
-                          <a className={`${handles.pp_item_nombre}`} href="">
-                              <p className={`${handles.pp_item_nombre}`}>Acondicionador Olaplex N°5 100ml Bond Maintenance</p>
-                          </a>
-                          <p className={`${handles.pp_item_precio}`}><span>$13.450</span></p>
-                      </div>
-                  </div>
-                  <div className={`${handles.pp_operador}`}>=</div>
-                  <div className={`${handles.pp_total}`}>
-                      <div className={`${handles.pp_total_icono}`}></div>
-                      <p>Comprar 3 productos por</p><span className={`${handles.total__price}`}>$81.290</span>
-                      <button className={`${handles.pp_boton_comprar}`} type="button">
-                          Comprar
-                      </button>
-                  </div>
+              <div className={`${handles.pp_operador}`}>+</div>
+
+              
+              <div className={`${handles.pp_item_segundo}`}>
+                <div className={`${handles.pp_item_actions}`}>
+                  <button className={`${handles.pp_boton_cambiar}`} type="button">
+                    <i className="fas fa-sync"></i>
+                    Cambiar
+                  </button>
+                  <button className={`${handles.pp_boton_eliminar}`} type="button">
+                    <i></i>
+                    Eliminar
+                  </button>
+                  <button className={`${handles.pp_boton_agregar}`} type="button">
+                    <i className="fas fa-plus"></i>
+                    Agregar
+                  </button>
+                </div>
+                <a className={`${handles.pp_item_imagen}`} href="">
+                  <img src={`${data.products[1].items[0].images[0].imageUrl}`}  />
+                </a>
+                <div className={`${handles.pp_item_contenido}`}>
+                  <a className={`${handles.pp_item_nombre}`} href="">
+                    <p className={`${handles.pp_item_nombre}`}>{`${data.products[1].items[0].nameComplete}`}</p>
+                  </a>
+                  <p className={`${handles.pp_item_precio}`}><span>$ {`${data.products[1].items[0].sellers[0].commertialOffer.ListPrice}`}</span></p>
+                </div>
               </div>
+              
+              <div className={`${handles.pp_operador}`}>+</div>
+              <div className={`${handles.pp_item_tercero}`}>
+                <div className={`${handles.pp_item_actions}`}>
+                  <button className={`${handles.pp_boton_cambiar}`} type="button">
+                    <i className="fas fa-sync"></i>
+                    Cambiar
+                  </button>
+                  <button className={`${handles.pp_boton_eliminar}`} type="button">
+                    <i className="fas fa-times"></i>
+                    Eliminar
+                  </button>
+                  <button className={`${handles.pp_boton_agregar}`} type="button">
+                    <i className="fas fa-plus"></i>
+                    Agregar
+                  </button>
+                </div>
+                <a className={`${handles.pp_item_imagen}`} href="">
+                  <img src={`${data.products[0].items[0].images[0].imageUrl}`} />
+                </a>
+                <div className={`${handles.pp_item_contenido}`}>
+                  <a className={`${handles.pp_item_nombre}`} href="">
+                    <p className={`${handles.pp_item_nombre}`}>{`${data.products[0].items[0].nameComplete}`}</p>
+                  </a>
+                  <p className={`${handles.pp_item_precio}`}><span>$ {`${data.products[0].items[0].sellers[0].commertialOffer.ListPrice}`}</span></p>
+                </div>
+              </div>
+              <div className={`${handles.pp_operador}`}>=</div>
+              <div className={`${handles.pp_total}`}>
+                <div className={`${handles.pp_total_icono}`}></div>
+                <p>Comprar 3 productos por</p><span className={`${handles.total__price}`}>$81.290</span>
+                <button className={`${handles.pp_boton_comprar}`} type="button">
+                  Comprar
+                </button>
+              </div>
+            </div>
           </div>
+        </div>
+      )}
       </div>
-    </div>
   )
 }
 
